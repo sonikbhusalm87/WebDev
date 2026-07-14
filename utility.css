@@ -1,0 +1,78 @@
+/* utility.css means utility css file which means the css which can be used on any items (common css) */
+
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Inter:ital,opsz,wght@0,14..32,326;1,14..32,326&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+*{
+    margin : 0;
+    padding : 0;
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    box-sizing : border-box;
+}
+
+
+.border{
+    border : 2px solid red;
+}
+
+.flex{
+    display : flex;
+}
+
+.justify-center{
+    justify-content : center;
+}
+
+.items-center{
+    align-items : center;
+}
+
+.bg-black{
+    background-color : black;
+    color : white;
+}
+
+.invert{
+    filter : invert(1);
+}
+
+.bg-grey{
+    background-color : #121212;
+}
+
+.rounded{
+    border-radius : 7px;
+}
+
+.m-1{
+    margin : 7px;
+}
+
+.p-1{
+    padding : 10px;
+}
+
+
+html {
+    scrollbar-color: #444 #121212;
+    scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #121212;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
