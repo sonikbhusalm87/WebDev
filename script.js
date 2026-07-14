@@ -15,33 +15,12 @@ function formatTime(seconds) {
 }
 
 async function getSongs() {
-  let a = await fetch(`/Spotify-clone/songs/`);
-  let response = await a.text();
-
-  let div = document.createElement("div");
-  div.innerHTML = response;
-
-  let links = div.getElementsByTagName("a");
-
-  //let songs = [];
-
-  for (let i = 0; i < links.length; i++) {
-    const element = links[i];
-
-    if (element.href.endsWith(".mp3")) {
-      let filename = decodeURIComponent(element.href.split("%5C").pop());
-
-      songs.push(
-        `/Spotify-clone/songs/${encodeURIComponent(filename)}`
-      );
-    }
-  }
-
-  return songs;
+    const response = await fetch("songs/songs.json");
+    return await response.json();
 }
 
 const playMusic = (track, pause = false) => {
-  currentSong.src = "/Spotify-clone/songs/" + track;
+  currentSong.src = "songs/" + encodeURIComponent(track);
   console.log(track)
 
   if (!pause) {
@@ -55,8 +34,8 @@ const playMusic = (track, pause = false) => {
 };
 
 async function main() {
-  let songs = await getSongs("songs/");
-  playMusic(decodeURIComponent(songs[0].split("/").pop()), true);
+  songs = await getSongs();
+  playMusic(songs[0], true);
 
   console.log(songs);
 
@@ -65,7 +44,7 @@ async function main() {
     .getElementsByTagName("ul")[0];
 
   for (const song of songs) {
-    let decodedsong = decodeURIComponent(song.split("/").pop());
+    let decodedsong = song;
 
     songUL.innerHTML =
       songUL.innerHTML +
@@ -119,7 +98,7 @@ async function main() {
   });
 
   document.querySelector(".seekbar").addEventListener("click", (e) => {
-    percent =
+    let percent =
       (e.offsetX / e.target.getBoundingClientRect().width) * 100;
 
     document.querySelector(".circle").style.left = percent + "%";
@@ -143,28 +122,20 @@ async function main() {
   document.querySelector("#next").addEventListener("click", () => {
     let track = document.querySelector(".songinfo").innerHTML;
 
-    let index = songs.findIndex(
-      (song) => decodeURIComponent(song.split("/").pop()) === track
-    );
+    let index = songs.findIndex(song => song === track);
 
     if (index < songs.length - 1) {
-      playMusic(
-        decodeURIComponent(songs[index + 1].split("/").pop())
-      );
+      playMusic(songs[index + 1]);
     }
   });
 
   document.querySelector("#previous").addEventListener("click", () => {
     let track = document.querySelector(".songinfo").innerHTML;
 
-    let index = songs.findIndex(
-      (song) => decodeURIComponent(song.split("/").pop()) === track
-    );
+    let index = songs.findIndex(song => song === track);
 
     if (index > 0) {
-      playMusic(
-        decodeURIComponent(songs[index - 1].split("/").pop())
-      );
+      playMusic(songs[index - 1]);
     }
   });
 
@@ -181,7 +152,7 @@ async function main() {
 
     cards.forEach((card, index) => {
         card.addEventListener("click", () => {
-            playMusic(decodeURIComponent(songs[index].split("/").pop()));
+            playMusic(songs[index]);
         });
     });
         
